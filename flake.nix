@@ -23,7 +23,12 @@
      version = "0.1.0";
      src = ./.;
      cargoLock.lockFile = ./Cargo.lock;
-   
+  
+    };
+
+    apps.default = {
+      type = "app";
+      program = "${self.packages.${system}.runme}/bin/weather_cli_demo";
   };
 
   };
