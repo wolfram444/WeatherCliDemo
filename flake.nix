@@ -12,6 +12,13 @@
   
   let
     pkgs = nixpkgs.legacyPackages.${system};
+    weather_cli_demo =  pkgs.rustPlatform.buildRustPackage {
+     pname = "weather_cli_demo";
+     version = "0.1.0";
+     src = ./.;
+     cargoLock.lockFile = ./Cargo.lock;
+    };
+
   in {
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = with pkgs; [
@@ -21,20 +28,11 @@
       ];
     };
 
-
-     packages.${system}.default = pkgs.rustPlatform.buildRustPackage {
-     pname = "weather_cli_demo";
-     version = "0.1.0";
-     src = ./.;
-     cargoLock.lockFile = ./Cargo.lock;
-  
-    };
-
     apps.default = {
       type = "app";
-      program = "${self.packages.${system}.runme}/bin/weather_cli_demo";
+      program = "${weather_cli_demo}/bin/weather_cli_demo";
   };
 
   }
-    )
+    );
 }
