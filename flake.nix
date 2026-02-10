@@ -20,7 +20,7 @@
     };
 
   in {
-    devShells.${system}.default = pkgs.mkShell {
+    devShells.default = pkgs.mkShell {
       buildInputs = with pkgs; [
         cargo
         rustc
